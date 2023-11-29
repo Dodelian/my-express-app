@@ -1,0 +1,92 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Utilizatori</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nume</th>
+                <th>Email</th>
+                <th>Acțiuni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% utilizatori.forEach((utilizator) => { %>
+                <tr>
+                    <td><%= utilizator.id %></td>
+                    <td><%= utilizator.nume %></td>
+                    <td><%= utilizator.email %></td>
+                    <td>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#editModal<%= utilizator.id %>">Editare</button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<%= utilizator.id %>">Ștergere</button>
+                    </td>
+                </tr>
+
+                <!-- Modal pentru Editare -->
+                <div class="modal fade" id="editModal<%= utilizator.id %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Editare Utilizator</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/utilizatori/<%= utilizator.id %>/actualizeaza" method="POST">
+                                    <div class="form-group">
+                                        <label for="editNume">Nume:</label>
+                                        <input type="text" id="editNume" name="nume" class="form-control" value="<%= utilizator.nume %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editEmail">Email:</label>
+                                        <input type="email" id="editEmail" name="email" class="form-control" value="<%= utilizator.email %>" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Actualizează</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal pentru Ștergere -->
+                <div class="modal fade" id="deleteModal<%= utilizator.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Confirmare Ștergere</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Sigur doriți să ștergeți utilizatorul <%= utilizator.nume %>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Anulare</button>
+                                <a href="/utilizatori/<%= utilizator.id %>/sterge" class="btn btn-danger">Șterge</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

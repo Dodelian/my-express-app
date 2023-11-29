@@ -1,0 +1,46 @@
+<!-- views/main.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Lista Utilizatorilor</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nume</th>
+                <th>Email</th>
+                <th>Acțiuni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% utilizatori.forEach((utilizator) => { %>
+                <tr>
+                    <td><%= utilizator.id %></td>
+                    <td><%= utilizator.nume %></td>
+                    <td><%= utilizator.email %></td>
+                    <td>
+                        <a href="/utilizatori/<%= utilizator.id %>" class="btn btn-info">Vizualizează</a>
+                        <a href="/utilizatori/<%= utilizator.id %>/editare" class="btn btn-warning">Editare</a>
+                        <a href="/utilizatori/<%= utilizator.id %>/sterge" class="btn btn-danger">Ștergere</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/adauga" class="btn btn-success">Adaugă Utilizator</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
